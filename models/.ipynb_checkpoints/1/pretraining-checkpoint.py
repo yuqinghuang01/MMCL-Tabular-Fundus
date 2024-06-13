@@ -10,14 +10,12 @@ from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 from pl_bolts.utils.self_supervised import torchvision_ssl_encoder
 
 from models.TabularEncoder import TabularEncoder
-from models.GraphEncoder import GraphEncoder
 
 class Pretraining(pl.LightningModule):
     
   def __init__(self, hparams) -> None:
     super().__init__()
     self.save_hyperparameters(hparams)
-    self.batch_size = hparams.batch_size
 
   def initialize_imaging_encoder_and_projector(self) -> None:
     """
@@ -26,11 +24,6 @@ class Pretraining(pl.LightningModule):
     self.encoder_imaging = torchvision_ssl_encoder(self.hparams.model)
     self.pooled_dim = 2048 if self.hparams.model=='resnet50' else 512
     self.projector_imaging = SimCLRProjectionHead(self.pooled_dim, self.hparams.embedding_dim, self.hparams.projection_dim)
-  
-  def initialize_graph_encoder_and_projector(self) -> None:
-    self.encoder_graph = GraphEncoder(self.hparams)
-    self.pooled_dim = self.hparams.graph_pooled_dim
-    self.projector_graph = SimCLRProjectionHead(self.hparams.graph_pooled_dim, self.hparams.embedding_dim, self.hparams.projection_dim)
 
   def initialize_tabular_encoder_and_projector(self) -> None:
     self.encoder_tabular = TabularEncoder(self.hparams)
@@ -76,33 +69,12 @@ class Pretraining(pl.LightningModule):
         param.requires_grad = False
       parameters = list(filter(lambda p: p.requires_grad, self.encoder_imaging.parameters()))
       assert len(parameters)==0
-        
-  def load_pretrained_graph_weights(self) -> None:
-    """
-    Can load graph encoder with pretrained weights from previous checkpoint/run
-    """
-    loaded_chkpt = torch.load(self.hparams.graph_pretrain_checkpoint)
-    state_dict = loaded_chkpt['state_dict']
-    state_dict_encoder = {}
-    for k in list(state_dict.keys()):
-      if k.startswith('encoder_graph.'):
-        state_dict_encoder[k[len('encoder_graph.'):]] = state_dict[k]
-    _ = self.encoder_graph.load_state_dict(state_dict_encoder, strict=True)
-    print("Loaded graph weights")
-    if self.hparams.pretrained_graph_strategy == 'frozen':
-      for _, param in self.encoder_graph.named_parameters():
-        param.requires_grad = False
-      parameters = list(filter(lambda p: p.requires_grad, self.encoder_graph.parameters()))
-      assert len(parameters)==0
 
   def forward(self, x: torch.Tensor) -> torch.Tensor:
     """
     Generates encoding of imaging data.
     """
-    if self.hparams.datatype.startswith('graph'):
-        z, y = self.forward_graph(x)
-    else:
-        z, y = self.forward_imaging(x)
+    z, y = self.forward_imaging(x)
     return y
 
   def forward_imaging(self, x: torch.Tensor) -> torch.Tensor:
@@ -111,14 +83,6 @@ class Pretraining(pl.LightningModule):
     """
     y = self.encoder_imaging(x)[0]
     z = self.projector_imaging(y)
-    return z, y
-
-  def forward_graph(self, x: torch.Tensor) -> torch.Tensor:
-    """
-    Generates projection and encoding of graph data.
-    """
-    y = self.encoder_graph(x)
-    z = self.projector_graph(y)
     return z, y
 
   def forward_tabular(self, x: torch.Tensor) -> torch.Tensor:
@@ -134,15 +98,15 @@ class Pretraining(pl.LightningModule):
     self.top1_acc_train(logits, labels)
     self.top5_acc_train(logits, labels)
     
-    self.log(f"{modality}.train.top1", self.top1_acc_train, on_epoch=True, on_step=False, batch_size=self.batch_size)
-    self.log(f"{modality}.train.top5", self.top5_acc_train, on_epoch=True, on_step=False, batch_size=self.batch_size)
+    self.log(f"{modality}.train.top1", self.top1_acc_train, on_epoch=True, on_step=False)
+    self.log(f"{modality}.train.top5", self.top5_acc_train, on_epoch=True, on_step=False)
 
   def calc_and_log_val_embedding_acc(self, logits, labels, modality: str) -> None:
     self.top1_acc_val(logits, labels)
     self.top5_acc_val(logits, labels)
     
-    self.log(f"{modality}.val.top1", self.top1_acc_val, on_epoch=True, on_step=False, batch_size=self.batch_size)
-    self.log(f"{modality}.val.top5", self.top5_acc_val, on_epoch=True, on_step=False, batch_size=self.batch_size)
+    self.log(f"{modality}.val.top1", self.top1_acc_val, on_epoch=True, on_step=False)
+    self.log(f"{modality}.val.top5", self.top5_acc_val, on_epoch=True, on_step=False)
 
 
   def training_epoch_end(self, train_step_outputs: List[Any]) -> None:
@@ -158,8 +122,8 @@ class Pretraining(pl.LightningModule):
       self.classifier_acc_train(preds, labels)
       self.classifier_auc_train(probs, labels)
 
-      self.log('classifier.train.accuracy', self.classifier_acc_train, on_epoch=True, on_step=False, batch_size=self.batch_size)
-      self.log('classifier.train.auc', self.classifier_auc_train, on_epoch=True, on_step=False, batch_size=self.batch_size)
+      self.log('classifier.train.accuracy', self.classifier_acc_train, on_epoch=True, on_step=False)
+      self.log('classifier.train.auc', self.classifier_auc_train, on_epoch=True, on_step=False)
 
   def validation_epoch_end(self, validation_step_outputs: List[torch.Tensor]) -> None:
     """
@@ -177,8 +141,8 @@ class Pretraining(pl.LightningModule):
       self.classifier_acc_val(preds, labels)
       self.classifier_auc_val(probs, labels)
 
-      self.log('classifier.val.accuracy', self.classifier_acc_val, on_epoch=True, on_step=False, batch_size=self.batch_size)
-      self.log('classifier.val.auc', self.classifier_auc_val, on_epoch=True, on_step=False, batch_size=self.batch_size)
+      self.log('classifier.val.accuracy', self.classifier_acc_val, on_epoch=True, on_step=False)
+      self.log('classifier.val.auc', self.classifier_auc_val, on_epoch=True, on_step=False)
 
 
   def stack_outputs(self, outputs: List[torch.Tensor]) -> torch.Tensor:

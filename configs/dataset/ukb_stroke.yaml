@@ -1,0 +1,70 @@
+# @package _global_
+defaults:
+ - _self_
+
+target: stroke_after_imaging
+image_type: image #prob
+
+node_features_name: ['pos_x', 'pos_y', 'degree']
+edge_features_name: ['length', 'distance', 'curveness', 'volume', 'avgCrossSection', 
+                     'minRadiusAvg', 'minRadiusStd', 'avgRadiusAvg', 'avgRadiusStd', 
+                     'maxRadiusAvg', 'maxRadiusStd', 'roundnessAvg', 'roundnessStd', 'num_voxels']
+
+
+num_classes: 2
+weights:
+# For the images, provide a .pt with a list of your images or a list of the paths to your images.
+# For big dataset need to save only paths to load live. If providing a list of paths, set live_loading=True.
+live_loading: False
+delete_segmentation: False
+balanced_accuracy: False
+eval_metric: auc
+
+
+field_lengths_tabular: /opt/notebooks/MMCL/data/i0_i1/tabular_lengths.pt
+
+
+# For the self-supervised pre-training
+data_train_tabular: /opt/notebooks/MMCL/data/i0_i1/features_train.csv
+data_val_tabular: /opt/notebooks/MMCL/data/i0_i1/features_val.csv
+
+data_train_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_train.pt
+data_val_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_val.pt
+
+data_train_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_train.pt
+data_val_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_val.pt
+
+
+# For the online classifier during self-supervised pre-training
+labels_train: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train.pt 
+labels_val: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val.pt 
+
+# For the downstream task, this should be balanced for train_eval & val_eval
+data_train_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/features_train_balanced.csv
+labels_train_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
+
+data_val_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/features_val_balanced.csv
+labels_val_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
+
+data_test_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/features_test.csv
+labels_test_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_test.pt 
+
+data_train_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_train_balanced.pt
+labels_train_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
+
+data_val_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_val_balanced.pt
+labels_val_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
+
+data_test_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_test.pt
+labels_test_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_test.pt 
+
+data_train_eval_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_train_balanced.pt
+labels_train_eval_graph: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
+
+data_val_eval_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_val_balanced.pt
+labels_val_eval_graph: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
+
+data_test_eval_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_test.pt
+labels_test_eval_graph: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_test.pt 
+
+
