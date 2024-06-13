@@ -40,6 +40,4 @@ You can evaluate a model by passing the path to the final pretraining checkpoint
 
 All argument defaults can be set in hydra yaml files found in the configs folder. 
 
-Most arguments in `configs/config.yaml' are set to those used in the paper.
-
-Code is integrated with weights and biases, so set `wandb_project` and `wandb_entity` in [config.yaml](configs/config.yaml).
+Code is integrated with weights and biases, so set `wandb_project` and `wandb_entity` in [configs/config.yaml](configs/config.yaml).
