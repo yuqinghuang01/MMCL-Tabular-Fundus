@@ -2,6 +2,10 @@
 
 This is the official code repository for our paper "Multimodal Contrastive Learning on Fundus Photographs and Tabular Data". The code is developed upon the [MMCL-Tabular-Imaging](https://github.com/paulhager/MMCL-Tabular-Imaging) framework.
 
+<p align="center">
+  <img src="./overview.png?raw=true">
+</p>
+
 ## Instructions
 
 Run the following commands to install and activate the environment. Then install additional packages.
