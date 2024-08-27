@@ -78,9 +78,13 @@ crop_scale_lower: 0.08
 hidden_sizes: [10, 50, 256]
 heads: [4, 4, 2]
 graph_pooled_dim: 512
+# hyperparameter k in SortPooling
 k: 30
+# use SortPooling for pooling layer; otherwise, use global mean pooling
 with_sp: True #False
+# use LineGraph or not as an alternative representation
 with_lg: True #False
+# ablation study for GNN layer types
 gnn_layer_type: GATConv # [GATConv, GINConv, GCNConv, SAGEConv, EdgeConv]
 
 # Tabular
