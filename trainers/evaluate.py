@@ -116,7 +116,7 @@ def evaluate(hparams, wandb_logger):
   wandb_logger.log_metrics({f'best.val.{hparams.eval_metric}.sen': model.best_val_sen})
   wandb_logger.log_metrics({f'best.val.{hparams.eval_metric}.spe': model.best_val_spe})
   print("best_val_fpr_tpr=========================================")
-  torch.save((model.best_val_fpr, model.best_val_tpr), f'/opt/notebooks/{hparams.datatype}_{hparams.image_type}_best_val.pt')
+  torch.save((model.best_val_fpr, model.best_val_tpr), f'./rocs/{hparams.datatype}_{hparams.image_type}_{hparams.gnn_layer_type}_best_val.pt')
 
   if hparams.test_and_eval:
     if hparams.datatype == 'imaging':

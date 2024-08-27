@@ -1,0 +1,70 @@
+# @package _global_
+defaults:
+ - _self_
+
+target: mi_after_imaging
+image_type: image #prob
+
+node_features_name: ['pos_x', 'pos_y', 'degree']
+edge_features_name: ['length', 'distance', 'curveness', 'volume', 'avgCrossSection', 
+                     'minRadiusAvg', 'minRadiusStd', 'avgRadiusAvg', 'avgRadiusStd', 
+                     'maxRadiusAvg', 'maxRadiusStd', 'roundnessAvg', 'roundnessStd', 'num_voxels']
+
+
+num_classes: 2
+weights:
+# For the images, provide a .pt with a list of your images or a list of the paths to your images.
+# For big dataset need to save only paths to load live. If providing a list of paths, set live_loading=True.
+live_loading: False
+delete_segmentation: False
+balanced_accuracy: False
+eval_metric: auc
+
+
+field_lengths_tabular: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/tabular_lengths.pt
+
+
+# For the self-supervised pre-training
+data_train_tabular: 
+data_val_tabular: 
+
+data_train_imaging: 
+data_val_imaging: 
+
+data_train_graph: 
+data_val_graph: 
+
+
+# For the online classifier during self-supervised pre-training
+labels_train: 
+labels_val: 
+
+# For the downstream task, this should be balanced for train_eval & val_eval
+data_train_eval_tabular: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/features_train_balanced.csv
+labels_train_eval_tabular: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_train_balanced.pt 
+
+data_val_eval_tabular: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/features_val_balanced.csv
+labels_val_eval_tabular: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_val_balanced.pt 
+
+data_test_eval_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/features_test.csv
+labels_test_eval_tabular: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_test.pt 
+
+data_train_eval_imaging: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${image_type}_tensor_train_balanced.pt
+labels_train_eval_imaging: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_train_balanced.pt 
+
+data_val_eval_imaging: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${image_type}_tensor_val_balanced.pt
+labels_val_eval_imaging: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_val_balanced.pt 
+
+data_test_eval_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${image_type}_tensor_test.pt
+labels_test_eval_imaging: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_test.pt 
+
+data_train_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/line_graphs_train_balanced.pt #/cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/graphs_train_balanced.pt
+labels_train_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_train_balanced.pt 
+
+data_val_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/line_graphs_val_balanced.pt #/cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/graphs_val_balanced.pt
+labels_val_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_val_balanced.pt 
+
+data_test_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/graphs_test.pt #/cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/graphs_test.pt
+labels_test_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/mi/${target}_tensor_test.pt 
+
+

@@ -124,7 +124,7 @@ class Evaluator(pl.LightningModule):
     self.log('test.sen', (test_tp / (test_tp + test_fn)), batch_size=self.batch_size)
     self.log('test.spe', (test_tn / (test_tn + test_fp)), batch_size=self.batch_size)
     print("test_fpr_tpr=========================================")
-    torch.save((test_fpr, test_tpr), f'/opt/notebooks/{self.hparams.datatype}_{self.hparams.image_type}_test.pt')
+    torch.save((test_fpr, test_tpr), f'./rocs/{self.hparams.datatype}_{self.hparams.image_type}_{self.hparams.gnn_layer_type}_test.pt')
     
   def training_step(self, batch: Tuple[torch.Tensor, torch.Tensor], _) -> torch.Tensor:
     """

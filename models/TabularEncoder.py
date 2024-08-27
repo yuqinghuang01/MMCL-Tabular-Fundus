@@ -27,6 +27,9 @@ class TabularEncoder(nn.Module):
       elif 'encoder_projector_tabular.encoder.2.running_mean' in state_dict.keys():
         encoder_name = 'encoder_projector_tabular.encoder.'
         self.encoder = self.build_encoder_bn_old(original_args)
+      elif 'model.tabular_model.encoder.encoder.1.running_mean' in state_dict.keys():
+        encoder_name = 'model.tabular_model.encoder.encoder.'
+        self.encoder = self.build_encoder(original_args)
       else:
         encoder_name = 'encoder_projector_tabular.encoder.'
         self.encoder = self.build_encoder_no_bn(original_args)

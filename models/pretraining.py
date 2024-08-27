@@ -29,8 +29,12 @@ class Pretraining(pl.LightningModule):
   
   def initialize_graph_encoder_and_projector(self) -> None:
     self.encoder_graph = GraphEncoder(self.hparams)
-    self.pooled_dim = self.hparams.graph_pooled_dim
-    self.projector_graph = SimCLRProjectionHead(self.hparams.graph_pooled_dim, self.hparams.embedding_dim, self.hparams.projection_dim)
+    if self.hparams.with_lg:
+      self.pooled_dim = 2*self.hparams.graph_pooled_dim
+      self.projector_graph = SimCLRProjectionHead(2*self.hparams.graph_pooled_dim, self.hparams.embedding_dim, self.hparams.projection_dim)
+    else:
+      self.pooled_dim = self.hparams.graph_pooled_dim
+      self.projector_graph = SimCLRProjectionHead(self.hparams.graph_pooled_dim, self.hparams.embedding_dim, self.hparams.projection_dim)
 
   def initialize_tabular_encoder_and_projector(self) -> None:
     self.encoder_tabular = TabularEncoder(self.hparams)

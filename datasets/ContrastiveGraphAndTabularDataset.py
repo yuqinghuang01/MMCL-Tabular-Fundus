@@ -45,6 +45,7 @@ class ContrastiveGraphAndTabularDataset(Dataset):
     
     # Classifier
     self.labels = torch.load(labels_path)
+
   
   def read_and_parse_csv(self, path_tabular: str) -> List[List[float]]:
     """
@@ -113,8 +114,8 @@ class ContrastiveGraphAndTabularDataset(Dataset):
       tabular_views = [self.one_hot_encode(tv) for tv in tabular_views]
     label = torch.tensor(self.labels[index], dtype=torch.long)
     
-    x, edge_index, edge_attr = graph_view.x, graph_view.edge_index, graph_view.edge_attr
-    data = MyData(x=x, edge_index=edge_index, edge_attr=edge_attr, 
+    x, edge_index, edge_attr, l_x, l_edge_index = graph_view.x, graph_view.edge_index, graph_view.edge_attr, graph_view.l_x, graph_view.l_edge_index
+    data = MyData(x=x, edge_index=edge_index, edge_attr=edge_attr, l_x=l_x, l_edge_index=l_edge_index,
                   tabular=tabular_views[0], corrupted_tabular=tabular_views[1], label=label)
     return data
 

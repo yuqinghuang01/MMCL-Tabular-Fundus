@@ -4,8 +4,8 @@ defaults:
   - dataset: ukb_stroke
 
 # Command Center
-pretrain: True
-run_eval: True
+pretrain: True #False
+run_eval: True #False
 
 seeds: 
   - 2022
@@ -60,7 +60,7 @@ multiple_lr: False
 
 batch_size: 64
 lr_eval: 1.e-3
-weight_decay_eval: 1.e-4
+weight_decay_eval: 0 #1.e-5
 val_check_interval: 1.0
 check_val_every_n_epoch: 1
 
@@ -78,6 +78,10 @@ crop_scale_lower: 0.08
 hidden_sizes: [10, 50, 256]
 heads: [4, 4, 2]
 graph_pooled_dim: 512
+k: 30
+with_sp: True #False
+with_lg: True #False
+gnn_layer_type: GATConv # [GATConv, GINConv, GCNConv, SAGEConv, EdgeConv]
 
 # Tabular
 corruption_rate: 0.3
@@ -93,7 +97,7 @@ generate_embeddings: False
 keep_projector: False
 eval_train_augment_rate: 0.8
 eval_classifier: linear
-finetune_strategy: frozen
+finetune_strategy: trainable #frozen
 
 vec2vec: False
 checkpoint_vec2vec: 

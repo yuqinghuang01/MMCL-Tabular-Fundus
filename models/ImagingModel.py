@@ -24,6 +24,8 @@ class ImagingModel(nn.Module):
         self.create_imaging_model(original_args)
       else:
         encoder_name_dict = {'clip' : 'encoder_imaging.', 'remove_fn' : 'encoder_imaging.', 'supcon' : 'encoder_imaging.', 'byol': 'online_network.encoder.', 'simsiam': 'online_network.encoder.', 'swav': 'model.', 'barlowtwins': 'network.encoder.'}
+        if 'model.imaging_model.encoder.conv1.weight' in state_dict:
+          encoder_name_dict['clip'] = 'model.imaging_model.encoder.'
         self.bolt_encoder = True
         self.encoder = torchvision_ssl_encoder(original_args['model'])
         self.encoder_name = encoder_name_dict[original_args['loss']]

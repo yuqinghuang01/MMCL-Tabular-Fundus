@@ -21,50 +21,50 @@ balanced_accuracy: False
 eval_metric: auc
 
 
-field_lengths_tabular: /opt/notebooks/MMCL/data/i0_i1/tabular_lengths.pt
+field_lengths_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/tabular_lengths.pt
 
 
 # For the self-supervised pre-training
-data_train_tabular: /opt/notebooks/MMCL/data/i0_i1/features_train.csv
-data_val_tabular: /opt/notebooks/MMCL/data/i0_i1/features_val.csv
+data_train_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/features_train.csv
+data_val_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/features_val.csv
 
-data_train_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_train.pt
-data_val_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_val.pt
+data_train_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${image_type}_tensor_train.pt
+data_val_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${image_type}_tensor_val.pt
 
-data_train_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_train.pt
-data_val_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_val.pt
+data_train_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/graphs_train.pt #/cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/graphs_train.pt
+data_val_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/graphs_val.pt #/cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/graphs_val.pt
 
 
 # For the online classifier during self-supervised pre-training
-labels_train: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train.pt 
-labels_val: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val.pt 
+labels_train: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_train.pt 
+labels_val: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_val.pt 
 
 # For the downstream task, this should be balanced for train_eval & val_eval
-data_train_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/features_train_balanced.csv
-labels_train_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
+data_train_eval_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/features_train_balanced.csv
+labels_train_eval_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
 
-data_val_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/features_val_balanced.csv
-labels_val_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
+data_val_eval_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/features_val_balanced.csv
+labels_val_eval_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
 
-data_test_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/features_test.csv
-labels_test_eval_tabular: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_test.pt 
+data_test_eval_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/features_test.csv
+labels_test_eval_tabular: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_test.pt 
 
-data_train_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_train_balanced.pt
-labels_train_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
+data_train_eval_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${image_type}_tensor_train_balanced.pt
+labels_train_eval_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
 
-data_val_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_val_balanced.pt
-labels_val_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
+data_val_eval_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${image_type}_tensor_val_balanced.pt
+labels_val_eval_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
 
-data_test_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${image_type}_tensor_test.pt
-labels_test_eval_imaging: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_test.pt 
+data_test_eval_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${image_type}_tensor_test.pt
+labels_test_eval_imaging: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_test.pt 
 
-data_train_eval_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_train_balanced.pt
-labels_train_eval_graph: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
+data_train_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/graphs_train_balanced.pt #/cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/graphs_train_balanced.pt
+labels_train_eval_graph: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_train_balanced.pt 
 
-data_val_eval_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_val_balanced.pt
-labels_val_eval_graph: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
+data_val_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/graphs_val_balanced.pt #/cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/graphs_val_balanced.pt
+labels_val_eval_graph: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_val_balanced.pt 
 
-data_test_eval_graph: /opt/notebooks/MMCL/data/i0_i1/graphs_test.pt
-labels_test_eval_graph: /opt/notebooks/MMCL/data/i0_i1/${target}_tensor_test.pt 
+data_test_eval_graph: /cluster/home/yuqhuang/MMCL-Tabular-Fundus/data/i0_i1/graphs_test.pt #/cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/graphs_test.pt
+labels_test_eval_graph: /cluster/work/grlab/projects/projects2024-ukb_cvd/Notebooks/yuqing/MMCL/data/i0_i1/${target}_tensor_test.pt 
 
 

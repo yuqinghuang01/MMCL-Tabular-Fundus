@@ -2,7 +2,7 @@ name: selfsuper
 channels:
   - pytorch
   - conda-forge
-  - defaults
+# - defaults
 dependencies:
   - _ipython_minor_entry_point=8.7.0=h8cf3c4a_0
   - _libgcc_mutex=0.1=conda_forge

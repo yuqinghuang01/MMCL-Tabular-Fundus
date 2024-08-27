@@ -14,13 +14,19 @@ class MultimodalModel(nn.Module):
     super(MultimodalModel, self).__init__()
     
     self.datatype = args.datatype
-    
+    self.with_lg = args.with_lg
+    self.embedding_dim = args.embedding_dim
+    self.graph_pooled_dim = args.graph_pooled_dim
+
     if self.datatype == 'imaging_tabular':
       self.imaging_model = ImagingModel(args)
       in_dim = 3072
     if self.datatype == 'graph_tabular':
       self.graph_model = GraphModel(args)
-      in_dim = 1024
+      if self.with_lg:
+        in_dim = self.embedding_dim + 2*self.graph_pooled_dim
+      else:
+        in_dim = self.embedding_dim + self.graph_pooled_dim
     
     self.tabular_model = TabularModel(args)
     self.head = nn.Linear(in_dim, args.num_classes)

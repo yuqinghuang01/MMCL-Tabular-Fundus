@@ -32,8 +32,8 @@ def grab_image_augmentations(img_size: int, target: str, crop_scale_lower: float
     ])
   else:
     transform = transforms.Compose([
-      transforms.RandomHorizontalFlip(),
-      transforms.RandomRotation(45),
+      #transforms.RandomHorizontalFlip(),
+      #transforms.RandomRotation(45),
       transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5),
       #transforms.RandomResizedCrop(size=img_size, scale=(0.2,1)),
       transforms.Resize(size=img_size, interpolation=transforms.InterpolationMode.BICUBIC),
@@ -46,8 +46,8 @@ def grab_soft_eval_image_augmentations(img_size: int) -> transforms.Compose:
   Defines augmentations to be used during evaluation of contrastive encoders. Typically a less sever form of contrastive augmentations.
   """
   transform = transforms.Compose([
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(20),
+    #transforms.RandomHorizontalFlip(),
+    #transforms.RandomRotation(20),
     transforms.ColorJitter(brightness=0.25, contrast=0.25, saturation=0.25),
     #transforms.RandomResizedCrop(size=img_size, scale=(0.8,1)),
     transforms.Resize(size=img_size, interpolation=transforms.InterpolationMode.BICUBIC),
@@ -71,8 +71,8 @@ def grab_hard_eval_image_augmentations(img_size: int, target: str) -> transforms
     ])
   else:
     transform = transforms.Compose([
-      transforms.RandomHorizontalFlip(),
-      transforms.RandomRotation(45),
+      #transforms.RandomHorizontalFlip(),
+      #transforms.RandomRotation(45),
       transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5),
       #transforms.RandomResizedCrop(size=img_size, scale=(0.6,1)),
       transforms.Resize(size=img_size, interpolation=transforms.InterpolationMode.BICUBIC),
