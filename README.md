@@ -1,6 +1,6 @@
-# Multimodal Contrastive Learning on Fundus Photographs and Tabular Data
+# Cardiovascular Disease Prediction through Retinal Graph Representations and Multimodal Self-supervised Learning
 
-This is the official code repository for our paper "Multimodal Contrastive Learning on Fundus Photographs and Tabular Data". The code is developed upon the [MMCL-Tabular-Imaging](https://github.com/paulhager/MMCL-Tabular-Imaging) framework.
+This is the official code repository for our paper "Cardiovascular Disease Prediction through Retinal Graph Representations and Multimodal Self-supervised Learning". The code is developed upon the [MMCL-Tabular-Imaging](https://github.com/paulhager/MMCL-Tabular-Imaging) framework.
 
 <p align="center">
   <img src="./overview.png?raw=true">
@@ -30,7 +30,7 @@ Dataset file paths are specified in `configs/dataset/[dataset].yaml`, where `[da
 
 ### Arguments - Command Line
 
-If pretraining, pass `pretrain=True` and `datatype={imaging_tabular|graph_tabular}` for the desired pretraining type.
+If pretraining, pass `pretrain=True` and `datatype={imaging_tabular|graph_tabular}` for the desired pretraining type, with image encoder or with graph encoder.
 
 If you do not pass `pretrain=True`, the model will train fully supervised with the data modality specified in `datatype`.
 
@@ -38,6 +38,6 @@ You can evaluate a model by passing the path to the final pretraining checkpoint
 
 ### Arguments - Hydra
 
-All argument defaults can be set in hydra yaml files found in the configs folder. 
+All argument defaults can be set in hydra yaml files found in the configs folder.
 
 Code is integrated with weights and biases, so set `wandb_project` and `wandb_entity` in [configs/config.yaml](configs/config.yaml).
